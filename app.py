@@ -26,7 +26,17 @@ bathroom = st.number_input("Number of Bathrooms", min_value=1, max_value=10, val
 contact = st.selectbox("Point of Contact", ["Contact Owner", "Contact Agent", "Contact Builder"])
 
 #Predict button
-if st.button("🔍 Predict Rent"):
+if st.button("Predict Rent"):
+
+    input_data = [["BHK", "Size", "Area Type", "City", "Furnishing Status", "Tenant Preferred", "Bathroom", "Point of Contact"]]
+
+    encoded_data = encoder.transform(input_data)
+    scaled_data = scaler.transform(encoded_data)
+
+    prediction = model.predict(scaled_data)
+
+    st.success(f"Predicted Rent: ₹ {prediction[0]}")
+
 
     input_data = pd.DataFrame({
         'BHK': [bhk],
